@@ -1,0 +1,487 @@
+---
+import Base from '../layouts/Base.astro';
+export const prerender = true;
+---
+<Base title="AXD Player — Your Music, Everywhere">
+    <!-- Top Loading Bar -->
+    <div id="topLoadingBar" class="fixed top-0 left-0 right-0 h-1 z-[10001] bg-transparent overflow-hidden pointer-events-none">
+        <div id="loadingBarFill" class="h-full bg-sp-green w-0 transition-all duration-300 ease-out shadow-[0_0_10px_#1DB954]"></div>
+    </div>
+
+    <div class="flex flex-1 overflow-hidden">
+        <!-- Sidebar (Desktop) -->
+        <aside class="w-64 bg-sp-black hidden lg:flex flex-col p-6 space-y-8 border-r border-white/5">
+            <div class="flex items-center space-x-2 px-2">
+                <div class="w-10 h-10 bg-gradient-to-br from-sp-green to-emerald-700 rounded-full flex items-center justify-center">
+                    <i data-lucide="headphones" class="w-5 h-5 text-white"></i>
+                </div>
+                <span class="text-xl font-black tracking-tighter">AXD PLAYER</span>
+            </div>
+            <nav class="space-y-1" id="sidebarNav">
+                <a href="#" data-view="home" class="sidebar-nav-item active flex items-center space-x-4 text-white font-bold py-3 px-3 rounded-xl bg-white/5 transition hover:bg-white/10">
+                    <i data-lucide="home" class="w-5 h-5"></i><span>Beranda</span>
+                </a>
+                <a href="#" data-view="search" class="sidebar-nav-item flex items-center space-x-4 text-gray-400 font-medium py-3 px-3 rounded-xl transition hover:text-white hover:bg-white/5">
+                    <i data-lucide="search" class="w-5 h-5"></i><span>Mencari</span>
+                </a>
+                <a href="#" data-view="library" class="sidebar-nav-item flex items-center space-x-4 text-gray-400 font-medium py-3 px-3 rounded-xl transition hover:text-white hover:bg-white/5">
+                    <i data-lucide="library" class="w-5 h-5"></i><span>Pustaka</span>
+                </a>
+                <a href="#" data-view="settings" class="sidebar-nav-item flex items-center space-x-4 text-gray-400 font-medium py-3 px-3 rounded-xl transition hover:text-white hover:bg-white/5">
+                    <i data-lucide="settings" class="w-5 h-5"></i><span>Pengaturan</span>
+                </a>
+            </nav>
+            <div class="pt-6 space-y-4 border-t border-white/5">
+                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest px-3">Playlists</p>
+                <div class="space-y-1 px-3">
+                    <a href="#" class="block text-gray-400 hover:text-white text-sm transition py-1">Liked Songs</a>
+                    <a href="#" class="block text-gray-400 hover:text-white text-sm transition py-1">Daily Mix 1</a>
+                </div>
+            </div>
+            <div class="mt-auto pt-6 border-t border-white/5">
+                <div id="sidebarProfileBox" class="flex items-center justify-between px-3 py-3 bg-white/5 rounded-xl hover:bg-white/10 transition cursor-pointer group">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center"><i data-lucide="user" class="w-4 h-4 text-white"></i></div>
+                        <span class="text-sm font-bold" id="sidebarProfileName">Guest</span>
+                    </div>
+                    <i data-lucide="settings" class="w-4 h-4 text-gray-500 group-hover:text-white transition"></i>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 bg-sp-dark overflow-y-auto pb-48 relative" id="mainContent">
+
+            <!-- ============== VIEW: HOME ============== -->
+            <div id="viewHome" class="view-container relative isolate px-5 pt-5 pb-4">
+                <div class="pointer-events-none absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-sp-green/25 via-sp-green/5 to-transparent -z-10"></div>
+                <!-- Header -->
+                <div class="flex items-center justify-between mb-5">
+                    <div class="flex items-center space-x-3">
+                        <button id="headerProfileBtn" class="w-11 h-11 bg-gradient-to-br from-sp-green to-emerald-700 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden ring-2 ring-white/20 shadow-lg shadow-black/30" title="Profil">
+                            <span id="headerAvatarInitial" class="text-white font-bold text-base">G</span>
+                        </button>
+                        <div>
+                            <p class="text-[10px] uppercase tracking-wider text-gray-400 font-semibold" id="greetingText">Selamat Malam</p>
+                            <h1 class="text-2xl font-black tracking-tight leading-tight" id="headerName">Guest</h1>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-1 bg-white/5 backdrop-blur-md rounded-full p-1 border border-white/5">
+                        <button class="relative p-2 text-gray-400 hover:text-white transition rounded-full hover:bg-white/10">
+                            <i data-lucide="bell" class="w-5 h-5"></i>
+                            <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-sp-red rounded-full"></span>
+                        </button>
+                        <button class="p-2 text-gray-400 hover:text-white transition rounded-full hover:bg-white/10">
+                            <i data-lucide="clock" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hero Featured -->
+                <section id="heroSection" class="mb-7 hidden animate-fadeInUp">
+                    <div class="relative overflow-hidden rounded-3xl p-4 sm:p-5 flex items-center gap-4 bg-gradient-to-br from-sp-green/25 via-sp-grey to-sp-grey border border-white/5 shadow-2xl shadow-black/40 transition-transform duration-300 hover:-translate-y-1">
+                        <div class="absolute inset-0 opacity-40 pointer-events-none bg-[radial-gradient(140px_140px_at_0%_0%,rgba(29,185,84,0.45),transparent)]"></div>
+                        <img id="heroArt" src="" alt="" class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl shadow-2xl shadow-black/50 object-cover flex-shrink-0">
+                        <div class="relative flex-1 min-w-0">
+                            <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-sp-green mb-1">Pilihan Hari Ini</p>
+                            <h3 id="heroTitle" class="text-lg sm:text-2xl font-black text-white truncate-2 leading-tight mb-0.5"></h3>
+                            <p id="heroArtist" class="text-xs text-gray-300 truncate mb-3"></p>
+                            <div class="flex items-center space-x-3">
+                                <button id="heroPlay" class="w-12 h-12 bg-sp-green rounded-full flex items-center justify-center text-black shadow-lg shadow-sp-green/40 hover:scale-105 transition active:scale-95"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></button>
+                                <button id="heroLike" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition active:scale-95"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Category Pills -->
+                <div class="flex space-x-2 overflow-x-auto scrollbar-hide mb-6 -mx-1 px-1" id="categoryPills">
+                    <button class="category-pill active flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-semibold bg-white text-black">Chill</button>
+                    <button class="category-pill flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-semibold bg-sp-light text-white hover:bg-white/20">Focus</button>
+                    <button class="category-pill flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-semibold bg-sp-light text-white hover:bg-white/20">Commute</button>
+                    <button class="category-pill flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-semibold bg-sp-light text-white hover:bg-white/20">Gaming</button>
+                    <button class="category-pill flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-semibold bg-sp-light text-white hover:bg-white/20">Energize</button>
+                </div>
+
+                <!-- Home Loading -->
+                <div id="homeLoading" class="flex flex-col items-center justify-center py-16">
+                    <div class="w-10 h-10 border-4 border-white/10 border-t-sp-green rounded-full animate-spin mb-4"></div>
+                    <p class="text-gray-400 text-sm font-medium">Memuat beranda...</p>
+                </div>
+
+                <!-- Spotlight -->
+                <section class="mb-7 hidden" id="spotlightSection">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-yellow-400"></i>
+                        <h2 class="text-base font-bold">Spotlight</h2>
+                        <div class="flex-1"></div>
+                        <div class="flex space-x-1" id="spotlightDots"></div>
+                    </div>
+                    <div class="relative overflow-hidden rounded-3xl shadow-2xl shadow-black/50" id="spotlightWrap">
+                        <button id="spotlightPrev" class="spotlight-nav spotlight-nav-prev" aria-label="Sebelumnya"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+                        <button id="spotlightNext" class="spotlight-nav spotlight-nav-next" aria-label="Berikutnya"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+                        <div class="spotlight-slides flex transition-transform duration-500 ease-out" id="spotlightSlides"></div>
+                    </div>
+                </section>
+
+                <!-- Pilihan Cepat -->
+                <section class="mb-7 hidden" id="quickPicksSection">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="trending-up" class="w-4 h-4 text-sp-green"></i>
+                            <h2 class="text-base font-bold">Pilihan Cepat</h2>
+                        </div>
+                        <button class="text-xs font-bold text-sp-green" id="quickPicksPlayAll">Putar semua</button>
+                    </div>
+                    <div class="space-y-0.5" id="quickPicksList"></div>
+                </section>
+
+                <!-- Featured Artists -->
+                <section class="mb-7 hidden" id="featuredArtistsSection">
+                    <div class="flex items-center justify-between mb-3">
+                        <h2 class="text-base font-bold">Artis Populer</h2>
+                        <button class="text-xs font-semibold text-gray-400">Semua ›</button>
+                    </div>
+                    <div class="flex space-x-4 overflow-x-auto scrollbar-hide -mx-1 px-1" id="featuredArtistsList"></div>
+                </section>
+
+                <!-- Featured Albums -->
+                <section class="mb-7 hidden" id="featuredAlbumsSection">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <i data-lucide="disc" class="w-4 h-4 text-purple-400"></i>
+                        <h2 class="text-base font-bold">Album Populer</h2>
+                    </div>
+                    <div class="flex space-x-3 overflow-x-auto scrollbar-hide -mx-1 px-1" id="featuredAlbumsList"></div>
+                </section>
+
+                <!-- From the Community (Playlists) -->
+                <section class="mb-7 hidden" id="communitySection">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <i data-lucide="globe" class="w-4 h-4 text-blue-400"></i>
+                        <h2 class="text-base font-bold">From the Community</h2>
+                    </div>
+                    <div class="flex space-x-3 overflow-x-auto scrollbar-hide -mx-1 px-1" id="communityList"></div>
+                </section>
+
+                <!-- Chill Vibes -->
+                <section class="mb-7 hidden" id="chillSection">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <span class="text-base">🎧</span>
+                        <h2 class="text-base font-bold">Chill Vibes</h2>
+                    </div>
+                    <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3" id="chillList"></div>
+                </section>
+
+                <!-- New Releases -->
+                <section class="mb-7 hidden" id="newReleasesSection">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <i data-lucide="zap" class="w-4 h-4 text-yellow-400"></i>
+                        <h2 class="text-base font-bold">Rilis Baru</h2>
+                    </div>
+                    <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3" id="newReleasesList"></div>
+                </section>
+
+                <!-- Top 50 Indonesia -->
+                <section class="mb-7 hidden" id="top50Section">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <i data-lucide="trending-up" class="w-4 h-4 text-red-400"></i>
+                        <h2 class="text-base font-bold">Top 50 Indonesia</h2>
+                    </div>
+                    <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3" id="top50List"></div>
+                </section>
+
+                <!-- K-Pop Hits -->
+                <section class="mb-7 hidden" id="kpopSection">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <i data-lucide="star" class="w-4 h-4 text-violet-400"></i>
+                        <h2 class="text-base font-bold">K-Pop Hits</h2>
+                    </div>
+                    <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3" id="kpopList"></div>
+                </section>
+
+                <!-- Dangdut -->
+                <section class="mb-7 hidden" id="dangdutSection">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <i data-lucide="music" class="w-4 h-4 text-orange-400"></i>
+                        <h2 class="text-base font-bold">Dangdut</h2>
+                    </div>
+                    <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3" id="dangdutList"></div>
+                </section>
+
+                <!-- Pop Indonesia -->
+                <section class="mb-7 hidden" id="popSection">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <i data-lucide="radio" class="w-4 h-4 text-blue-400"></i>
+                        <h2 class="text-base font-bold">Pop Indonesia</h2>
+                    </div>
+                    <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3" id="popList"></div>
+                </section>
+
+                <!-- Serupa dengan [Artist] -->
+                <div id="artistSections"></div>
+
+                <!-- Baru Diputar -->
+                <section class="mb-7" id="historySection" style="display:none;">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <i data-lucide="clock" class="w-4 h-4 text-gray-400"></i>
+                        <h2 class="text-base font-bold">Baru Diputar</h2>
+                    </div>
+                    <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3" id="historyList"></div>
+                </section>
+            </div>
+
+            <!-- ============== VIEW: SEARCH RESULTS ============== -->
+            <div id="viewSearchResults" class="view-container hidden px-5 pt-5 pb-4">
+                <div class="flex items-center space-x-4 mb-5">
+                    <button id="backToHomeBtn" class="p-2 -ml-2 hover:bg-white/5 rounded-full transition group">
+                        <i data-lucide="arrow-left" class="w-6 h-6 text-gray-400 group-hover:text-white"></i>
+                    </button>
+                    <h2 class="text-xl font-bold" id="searchResultTitle">Hasil Pencarian</h2>
+                </div>
+
+                <!-- Header Card -->
+                <div id="headerResultCard" class="hidden mb-8 flex flex-col md:flex-row items-center md:items-end space-y-6 md:space-y-0 md:space-x-8 p-8 rounded-3xl bg-gradient-to-b from-white/10 to-transparent border border-white/5 shadow-2xl">
+                    <div class="w-44 h-44 md:w-56 md:h-56 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex-shrink-0">
+                        <img src="" alt="" id="headerResultImg" class="w-full h-full object-cover rounded-xl">
+                    </div>
+                    <div class="flex-1 text-center md:text-left pb-2">
+                        <p class="text-xs font-black uppercase tracking-[0.2em] text-sp-green mb-2" id="headerResultType"></p>
+                        <h1 class="text-3xl md:text-6xl font-black mb-4 tracking-tighter leading-none" id="headerResultName"></h1>
+                        <span id="headerResultExtra" class="text-sm text-white/70 font-medium"></span>
+                    </div>
+                </div>
+
+                <!-- Search Result Artists -->
+                <div id="searchArtists" class="hidden mb-5">
+                    <h3 class="text-sm font-bold text-gray-400 mb-3">Artis</h3>
+                    <div class="flex space-x-4 overflow-x-auto scrollbar-hide" id="searchArtistsList"></div>
+                </div>
+
+                <!-- Search Result Albums -->
+                <div id="searchAlbums" class="hidden mb-5">
+                    <h3 class="text-sm font-bold text-gray-400 mb-3">Album</h3>
+                    <div class="flex space-x-3 overflow-x-auto scrollbar-hide" id="searchAlbumsList"></div>
+                </div>
+
+                <!-- Search Result Playlists -->
+                <div id="searchPlaylists" class="hidden mb-5">
+                    <h3 class="text-sm font-bold text-gray-400 mb-3">Playlist</h3>
+                    <div class="flex space-x-3 overflow-x-auto scrollbar-hide" id="searchPlaylistsList"></div>
+                </div>
+
+                <!-- Skeleton -->
+                <div id="skeletonLoader" class="hidden space-y-3">
+                    <div class="flex items-center space-x-3 p-2 animate-pulse"><div class="w-7 h-4 bg-white/5 rounded"></div><div class="w-10 h-10 bg-white/5 rounded"></div><div class="flex-1 space-y-2"><div class="h-4 bg-white/10 rounded w-1/3"></div><div class="h-3 bg-white/5 rounded w-1/4"></div></div></div>
+                    <div class="flex items-center space-x-3 p-2 animate-pulse"><div class="w-7 h-4 bg-white/5 rounded"></div><div class="w-10 h-10 bg-white/5 rounded"></div><div class="flex-1 space-y-2"><div class="h-4 bg-white/10 rounded w-2/5"></div><div class="h-3 bg-white/5 rounded w-1/5"></div></div></div>
+                    <div class="flex items-center space-x-3 p-2 animate-pulse"><div class="w-7 h-4 bg-white/5 rounded"></div><div class="w-10 h-10 bg-white/5 rounded"></div><div class="flex-1 space-y-2"><div class="h-4 bg-white/10 rounded w-1/4"></div><div class="h-3 bg-white/5 rounded w-1/6"></div></div></div>
+                    <div class="flex items-center space-x-3 p-2 animate-pulse"><div class="w-7 h-4 bg-white/5 rounded"></div><div class="w-10 h-10 bg-white/5 rounded"></div><div class="flex-1 space-y-2"><div class="h-4 bg-white/10 rounded w-1/3"></div><div class="h-3 bg-white/5 rounded w-1/4"></div></div></div>
+                </div>
+
+                <h3 class="text-sm font-bold text-gray-400 mb-2 hidden" id="tracksLabel">Lagu</h3>
+                <div class="space-y-1" id="results"></div>
+            </div>
+
+            <!-- ============== VIEW: MENCARI ============== -->
+            <div id="viewSearch" class="view-container hidden px-5 pt-5 pb-4">
+                <div class="flex items-center justify-between mb-5">
+                    <h1 class="text-xl font-black tracking-tight">Mencari</h1>
+                    <button class="p-2 text-gray-400 hover:text-white transition rounded-full hover:bg-white/5" id="searchPageSearchBtn">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div class="flex space-x-3 overflow-x-auto scrollbar-hide mb-7 -mx-1 px-1">
+                    <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-sp-green to-emerald-600 rounded-2xl flex items-center justify-center cursor-pointer hover:scale-105 transition" id="actionPlay">
+                        <i data-lucide="play" class="w-7 h-7 text-white fill-current"></i>
+                    </div>
+                    <div class="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-purple-600 to-purple-800 rounded-2xl flex items-center justify-center cursor-pointer hover:scale-105 transition" id="actionLive">
+                        <i data-lucide="radio" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <div class="flex-shrink-0 w-16 h-16 bg-sp-light rounded-2xl flex items-center justify-center cursor-pointer hover:scale-105 transition">
+                        <i data-lucide="plus" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <div class="flex-shrink-0 w-16 h-16 bg-sp-light rounded-2xl flex items-center justify-center cursor-pointer hover:scale-105 transition">
+                        <i data-lucide="compass" class="w-7 h-7 text-white"></i>
+                    </div>
+                </div>
+                <section class="mb-7">
+                    <div class="flex items-center justify-between mb-3">
+                        <h2 class="text-base font-bold">Tetap Mendengarkan</h2>
+                        <button class="text-xs font-semibold text-gray-400">Semua ›</button>
+                    </div>
+                    <div class="flex space-x-4 overflow-x-auto scrollbar-hide -mx-1 px-1" id="keepListeningList"></div>
+                </section>
+                <section class="mb-7">
+                    <h2 class="text-base font-bold mb-3">Trending Now</h2>
+                    <div class="grid grid-cols-2 gap-3" id="trendingGrid">
+                        <div class="bg-sp-grey rounded-xl p-3 cursor-pointer hover:bg-sp-light transition trending-item" data-query="Top Hits Indonesia"><div class="w-full aspect-video rounded-lg bg-gradient-to-br from-blue-600 to-purple-700 mb-2 flex items-center justify-center"><i data-lucide="flame" class="w-8 h-8 text-white opacity-60"></i></div><p class="text-sm font-bold truncate">Top Hits Indonesia</p></div>
+                        <div class="bg-sp-grey rounded-xl p-3 cursor-pointer hover:bg-sp-light transition trending-item" data-query="Lagu Viral 2025"><div class="w-full aspect-video rounded-lg bg-gradient-to-br from-pink-600 to-red-700 mb-2 flex items-center justify-center"><i data-lucide="trending-up" class="w-8 h-8 text-white opacity-60"></i></div><p class="text-sm font-bold truncate">Lagu Viral 2025</p></div>
+                        <div class="bg-sp-grey rounded-xl p-3 cursor-pointer hover:bg-sp-light transition trending-item" data-query="K-Pop Hits"><div class="w-full aspect-video rounded-lg bg-gradient-to-br from-violet-600 to-indigo-700 mb-2 flex items-center justify-center"><i data-lucide="star" class="w-8 h-8 text-white opacity-60"></i></div><p class="text-sm font-bold truncate">K-Pop Hits</p></div>
+                        <div class="bg-sp-grey rounded-xl p-3 cursor-pointer hover:bg-sp-light transition trending-item" data-query="Lo-fi Beats"><div class="w-full aspect-video rounded-lg bg-gradient-to-br from-teal-600 to-cyan-700 mb-2 flex items-center justify-center"><i data-lucide="headphones" class="w-8 h-8 text-white opacity-60"></i></div><p class="text-sm font-bold truncate">Lo-fi Beats</p></div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ============== VIEW: PUSTAKA ============== -->
+            <div id="viewLibrary" class="view-container hidden px-5 pt-5 pb-4">
+                <div class="flex items-center justify-between mb-5">
+                    <h1 class="text-xl font-black tracking-tight">Pustaka</h1>
+                    <button class="p-2 text-gray-400 hover:text-white transition rounded-full hover:bg-white/5"><i data-lucide="search" class="w-5 h-5"></i></button>
+                </div>
+                <div class="flex space-x-2 overflow-x-auto scrollbar-hide mb-5 -mx-1 px-1">
+                    <button class="lib-filter active flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-semibold bg-white text-black" data-filter="playlists">Daftar putar</button>
+                    <button class="lib-filter flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-semibold bg-sp-light text-white" data-filter="songs">Lagu</button>
+                    <button class="lib-filter flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-semibold bg-sp-light text-white" data-filter="albums">Album</button>
+                    <button class="lib-filter flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-semibold bg-sp-light text-white" data-filter="artists">Artis</button>
+                </div>
+                <div class="flex items-center justify-between mb-4 text-xs text-gray-400">
+                    <div class="flex items-center space-x-1"><span>Tanggal ditambahkan</span><i data-lucide="chevron-down" class="w-3 h-3"></i></div>
+                    <button><i data-lucide="list" class="w-4 h-4"></i></button>
+                </div>
+                <div class="space-y-1" id="libraryItems">
+                    <div class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/5 transition cursor-pointer">
+                        <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0"><i data-lucide="heart" class="w-5 h-5 text-white fill-current"></i></div>
+                        <div class="flex-1 min-w-0"><p class="text-sm font-bold">Disukai</p><p class="text-xs text-gray-400">0 lagu</p></div>
+                    </div>
+                    <div class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/5 transition cursor-pointer">
+                        <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-600 rounded-lg flex items-center justify-center flex-shrink-0"><i data-lucide="trending-up" class="w-5 h-5 text-white"></i></div>
+                        <div class="flex-1 min-w-0"><p class="text-sm font-bold">Teratas Saya 50</p><p class="text-xs text-gray-400">Playlist • Auto-generated</p></div>
+                    </div>
+                    <div class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/5 transition cursor-pointer" id="libHistoryBtn">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center flex-shrink-0"><i data-lucide="clock" class="w-5 h-5 text-white"></i></div>
+                        <div class="flex-1 min-w-0"><p class="text-sm font-bold">Riwayat / Tersimpan di Cache</p><p class="text-xs text-gray-400">Playlist</p></div>
+                    </div>
+                    <div class="flex items-center space-x-4 p-3 rounded-xl hover:bg-white/5 transition cursor-pointer">
+                        <div class="w-12 h-12 bg-sp-light rounded-lg flex items-center justify-center flex-shrink-0"><i data-lucide="plus" class="w-5 h-5 text-white"></i></div>
+                        <div class="flex-1 min-w-0"><p class="text-sm font-bold">Buat playlist baru</p></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============== VIEW: PENGATURAN ============== -->
+            <div id="viewSettings" class="view-container hidden px-5 pt-5 pb-4">
+                <div class="flex items-center space-x-4 mb-6">
+                    <button class="p-2 -ml-2 hover:bg-white/5 rounded-full transition settings-back-btn"><i data-lucide="arrow-left" class="w-5 h-5 text-gray-400"></i></button>
+                    <h1 class="text-xl font-black tracking-tight flex-1 text-center pr-10">Pengaturan</h1>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <div data-setting="dataSaver" class="bg-sp-grey rounded-2xl p-4 flex flex-col items-center space-y-2 hover:bg-sp-light transition cursor-pointer"><i data-lucide="bar-chart-3" class="w-6 h-6 text-gray-400"></i><p class="text-xs font-bold text-center">Mode hemat data</p><p class="text-[10px] text-gray-500 setting-status">Nonaktif</p></div>
+                    <div data-setting="privateSession" class="bg-sp-grey rounded-2xl p-4 flex flex-col items-center space-y-2 hover:bg-sp-light transition cursor-pointer"><i data-lucide="eye-off" class="w-6 h-6 text-gray-400"></i><p class="text-xs font-bold text-center">Sesi pribadi</p><p class="text-[10px] text-gray-500 setting-status">Nonaktif</p></div>
+                </div>
+                <div class="space-y-0.5">
+                    <div data-action="profile" class="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/5 transition cursor-pointer"><i data-lucide="user" class="w-5 h-5 text-gray-400"></i><div class="flex-1"><p class="text-sm font-bold">Akun</p><p class="text-xs text-gray-500">Nama pengguna • Tutup akun</p></div><i data-lucide="chevron-right" class="w-4 h-4 text-gray-600"></i></div>
+                    <div data-setting="reduceMotion" class="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/5 transition cursor-pointer"><i data-lucide="palette" class="w-5 h-5 text-gray-400"></i><div class="flex-1"><p class="text-sm font-bold">Konten dan tampilan</p><p class="text-xs text-gray-500">Canvas • Kurangi animasi · <span class="setting-status">Nonaktif</span></p></div><i data-lucide="chevron-right" class="w-4 h-4 text-gray-600"></i></div>
+                    <div data-setting="autoplay" class="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/5 transition cursor-pointer"><i data-lucide="volume-2" class="w-5 h-5 text-gray-400"></i><div class="flex-1"><p class="text-sm font-bold">Playback</p><p class="text-xs text-gray-500">Autoplay · <span class="setting-status">Aktif</span></p></div><i data-lucide="chevron-right" class="w-4 h-4 text-gray-600"></i></div>
+                    <div data-setting="notifications" class="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/5 transition cursor-pointer"><i data-lucide="bell" class="w-5 h-5 text-gray-400"></i><div class="flex-1"><p class="text-sm font-bold">Notifikasi</p><p class="text-xs text-gray-500">Push · <span class="setting-status">Nonaktif</span></p></div><i data-lucide="chevron-right" class="w-4 h-4 text-gray-600"></i></div>
+                    <div data-setting="highQuality" class="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/5 transition cursor-pointer"><i data-lucide="sliders" class="w-5 h-5 text-gray-400"></i><div class="flex-1"><p class="text-sm font-bold">Kualitas media</p><p class="text-xs text-gray-500">FLAC · <span class="setting-status">Nonaktif</span></p></div><i data-lucide="chevron-right" class="w-4 h-4 text-gray-600"></i></div>
+                </div>
+            </div>
+
+            <!-- Loading / No Results (global) -->
+            <div class="loading hidden flex-col items-center justify-center py-20 px-5">
+                <div class="w-10 h-10 border-4 border-white/10 border-t-sp-green rounded-full animate-spin mb-4"></div>
+                <p class="text-gray-400 text-sm font-medium">Mencari musik...</p>
+            </div>
+            <div class="no-results hidden py-20 text-center px-5">
+                <div class="w-16 h-16 mx-auto mb-4 bg-white/5 rounded-full flex items-center justify-center"><i data-lucide="search-x" class="w-8 h-8 text-gray-500"></i></div>
+                <h3 class="text-xl font-bold mb-2">Tidak ada hasil</h3>
+                <p class="text-gray-500">Coba kata kunci lain.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Player Bar -->
+    <div id="mainPlayerBar" class="fixed bottom-[64px] lg:bottom-0 left-0 right-0 z-[100] player-blur px-4 py-3 lg:px-6 hidden border-b border-white/5 lg:border-none">
+        <div class="max-w-screen-2xl mx-auto flex items-center justify-between gap-4">
+            <div class="flex items-center space-x-3 flex-1 min-w-0" id="playerMini">
+                <img src="" alt="" class="w-12 h-12 rounded-lg shadow-lg object-cover" id="miniThumbnail">
+                <div class="overflow-hidden hidden sm:block"><div class="text-sm font-bold truncate hover:underline cursor-pointer" id="miniTitle">Song</div><div class="text-xs text-gray-400 truncate hover:underline cursor-pointer" id="miniArtist">Artist</div></div>
+                <div class="sm:hidden flex-1 min-w-0"><div class="text-xs font-bold truncate" id="miniTitleMobile">Song</div><div class="text-[10px] text-gray-400 truncate" id="miniArtistMobile">Artist</div></div>
+            </div>
+            <div class="flex flex-col items-center space-y-1.5 flex-1 max-w-xl">
+                <div class="flex items-center space-x-6">
+                    <button class="text-gray-400 hover:text-white transition hidden md:block" id="shuffleBtn"><i data-lucide="shuffle" class="w-4 h-4"></i></button>
+                    <button class="text-gray-400 hover:text-white transition" id="prevBtnLarge"><i data-lucide="skip-back" class="w-5 h-5 fill-current"></i></button>
+                    <button class="w-8 h-8 md:w-10 md:h-10 bg-white rounded-full flex items-center justify-center text-black hover:scale-105 transition active:scale-95" id="playBtnLarge"><i data-lucide="play" class="w-5 h-5 fill-current ml-0.5" id="playIconMain"></i></button>
+                    <button class="text-gray-400 hover:text-white transition" id="nextBtnLarge"><i data-lucide="skip-forward" class="w-5 h-5 fill-current"></i></button>
+                    <button class="text-gray-400 hover:text-white transition hidden md:block" id="repeatBtn"><i data-lucide="repeat" class="w-4 h-4"></i></button>
+                </div>
+                <div class="w-full flex items-center space-x-2 group">
+                    <span class="text-[10px] text-gray-500 w-8 text-right" id="currentTimeLarge">0:00</span>
+                    <div class="flex-1 h-1 bg-white/20 rounded-full cursor-pointer relative" id="progressBarLarge"><div class="h-full bg-white group-hover:bg-sp-green rounded-full relative" id="progressLarge" style="width:0%"><div class="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition"></div></div></div>
+                    <span class="text-[10px] text-gray-500 w-8" id="totalTimeLarge">0:00</span>
+                </div>
+            </div>
+            <div class="flex items-center justify-end space-x-4 flex-1 hidden md:flex">
+                <button class="text-gray-400 hover:text-white transition" id="downloadBtnLarge"><i data-lucide="download" class="w-5 h-5"></i></button>
+                <div class="flex items-center space-x-2 w-32"><i data-lucide="volume-2" class="w-4 h-4 text-gray-400"></i><div class="flex-1 h-1 bg-white/20 rounded-full"><div class="w-3/4 h-full bg-white rounded-full"></div></div></div>
+            </div>
+            <div class="md:hidden flex items-center"><button class="text-gray-400 p-2" id="downloadBtnMobile"><i data-lucide="download" class="w-5 h-5"></i></button></div>
+        </div>
+    </div>
+
+    <!-- Full Player -->
+    <div class="fixed inset-0 z-[200] hidden bg-black overflow-y-auto" id="playerFull">
+        <div class="fixed inset-0 z-0"><img src="" alt="" class="w-full h-full object-cover scale-110 blur-xl opacity-40" id="fullBgImage"><div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black"></div></div>
+        <div class="relative z-10 flex flex-col min-h-full p-6">
+            <header class="flex items-center justify-between mb-8">
+                <button id="minimizeBtn" class="p-2 -ml-2 text-white"><i data-lucide="chevron-down" class="w-8 h-8"></i></button>
+                <div class="text-center"><p class="text-[10px] font-bold uppercase tracking-widest text-gray-300">NOW PLAYING</p><p class="text-xs font-bold text-white truncate max-w-[200px]" id="fullPlaylistTitle">AXD Player</p></div>
+                <button class="p-2 -mr-2 text-white"><i data-lucide="more-vertical" class="w-6 h-6"></i></button>
+            </header>
+            <div class="flex items-center justify-center py-6 px-4"><div class="w-full max-w-[340px] aspect-square shadow-2xl shadow-black/80 rounded-xl overflow-hidden"><img src="" alt="" class="w-full h-full object-cover" id="fullThumbnail"></div></div>
+            <div class="mt-8 space-y-6">
+                <div class="flex items-center justify-between"><div class="flex-1 min-w-0"><h2 class="text-2xl font-black text-white truncate tracking-tight" id="fullTitle">Song</h2><p class="text-gray-300 text-lg font-medium truncate" id="fullArtist">Artist</p></div><button class="text-white opacity-80 ml-4" id="likeBtn"><i data-lucide="heart" class="w-6 h-6"></i></button></div>
+                <div class="space-y-2">
+                    <div class="h-1 bg-white/20 rounded-full w-full cursor-pointer" id="progressBarFull"><div class="h-full bg-white rounded-full relative" id="progressFull" style="width:0%"><div class="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-lg"></div></div></div>
+                    <div class="flex justify-between text-[10px] text-gray-400 font-bold"><span id="currentTimeFull">0:00</span><span id="totalTimeFull">0:00</span></div>
+                </div>
+                <div class="flex items-center justify-between px-2">
+                    <button class="text-white opacity-80" id="shuffleBtnFull"><i data-lucide="shuffle" class="w-6 h-6"></i></button>
+                    <button class="text-white hover:scale-110 transition" id="prevBtnFull"><i data-lucide="skip-back" class="w-9 h-9 fill-current"></i></button>
+                    <button class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-black hover:scale-105 transition shadow-xl" id="playBtnFull"><i data-lucide="play" class="w-7 h-7 fill-current ml-1" id="playIconFull"></i></button>
+                    <button class="text-white hover:scale-110 transition" id="nextBtnFull"><i data-lucide="skip-forward" class="w-9 h-9 fill-current"></i></button>
+                    <button class="text-white opacity-80" id="repeatBtnFull"><i data-lucide="repeat" class="w-6 h-6"></i></button>
+                </div>
+                <div class="flex items-center justify-between pt-4 opacity-80"><button class="text-white"><i data-lucide="monitor" class="w-5 h-5"></i></button><div class="flex items-center space-x-8"><button class="text-white"><i data-lucide="share-2" class="w-5 h-5"></i></button><button class="text-white" id="queueBtnFull"><i data-lucide="list-music" class="w-5 h-5"></i></button></div></div>
+            </div>
+            <div class="mt-12 mb-10" id="queueSectionFull"><div class="flex items-center justify-between mb-6"><h3 class="text-xl font-bold text-white">Berikutnya</h3></div><div class="space-y-1" id="queueList"></div></div>
+        </div>
+    </div>
+
+    <audio id="audioPlayer" style="display:none;"></audio>
+
+    <!-- Mobile Nav -->
+    <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-[150] bg-sp-black border-t border-white/5 flex items-center justify-around py-2 px-2 pb-safe" id="mobileNav">
+        <a href="#" data-view="home" class="mobile-nav-item active flex flex-col items-center space-y-0.5 py-1 px-3 text-white" id="mobileHome"><i data-lucide="home" class="w-5 h-5"></i><span class="text-[10px] font-bold">Beranda</span></a>
+        <a href="#" data-view="search" class="mobile-nav-item flex flex-col items-center space-y-0.5 py-1 px-3 text-gray-500" id="mobileSearch"><i data-lucide="search" class="w-5 h-5"></i><span class="text-[10px] font-bold">Mencari</span></a>
+        <a href="#" data-view="library" class="mobile-nav-item flex flex-col items-center space-y-0.5 py-1 px-3 text-gray-500" id="mobileLibrary"><i data-lucide="bar-chart-3" class="w-5 h-5"></i><span class="text-[10px] font-bold">Pustaka</span></a>
+        <a href="#" data-view="settings" class="mobile-nav-item flex flex-col items-center space-y-0.5 py-1 px-3 text-gray-500" id="mobileSettings"><i data-lucide="settings" class="w-5 h-5"></i><span class="text-[10px] font-bold">Pengaturan</span></a>
+    </nav>
+
+    <!-- Search Overlay -->
+    <div id="searchOverlay" class="fixed inset-0 z-[1000] hidden bg-black/95 backdrop-blur-2xl flex flex-col p-6 pt-16">
+        <button id="closeSearchBtn" class="absolute top-5 right-5 text-gray-400 hover:text-white transition"><i data-lucide="x" class="w-7 h-7"></i></button>
+        <div class="max-w-xl mx-auto w-full">
+            <div class="relative"><i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-sp-green"></i><input type="text" class="search-input w-full bg-white/5 border border-white/10 rounded-2xl py-3.5 pl-12 pr-6 text-lg font-bold text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-sp-green shadow-2xl transition" placeholder="Cari lagu, artis, album..."></div>
+            <div class="mt-8"><p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Trending</p><div class="flex flex-wrap gap-2"><button class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-full text-sm font-bold transition trend-search">Lagu Viral</button><button class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-full text-sm font-bold transition trend-search">Relaxing Piano</button><button class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-full text-sm font-bold transition trend-search">Top Hits Indonesia</button><button class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-full text-sm font-bold transition trend-search">K-Pop Hits</button></div></div>
+        </div>
+    </div>
+
+    <!-- Profile Modal (optional local sign in/up) -->
+    <div id="profileModal" class="fixed inset-0 z-[2000] hidden bg-black/80 backdrop-blur flex items-center justify-center p-6">
+        <div class="bg-sp-grey rounded-2xl p-6 w-full max-w-sm space-y-4">
+            <h2 class="text-lg font-black">Profil</h2>
+            <p class="text-xs text-gray-400">Masuk opsional. Cukup isi nama — tidak perlu akun sungguhan. App bisa dipakai sebagai Guest.</p>
+            <input id="profileNameInput" type="text" placeholder="Nama panggilan" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white font-bold focus:outline-none focus:ring-2 focus:ring-sp-green">
+            <div class="flex space-x-2">
+                <button id="profileSaveBtn" class="flex-1 bg-sp-green text-black font-bold py-2.5 rounded-xl hover:opacity-90">Simpan</button>
+                <button id="profileClearBtn" class="px-4 bg-white/10 text-white font-bold py-2.5 rounded-xl hover:bg-white/20">Keluar</button>
+            </div>
+            <button id="profileCloseBtn" class="w-full text-gray-400 text-sm py-1 hover:text-white">Batal</button>
+        </div>
+    </div>
+
+    <script is:inline src="/js/config.js"></script>
+    <script is:inline src="/js/script.js"></script>
+    <script is:inline>lucide.createIcons();</script>
+</Base>

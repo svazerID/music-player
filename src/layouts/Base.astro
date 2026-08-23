@@ -1,0 +1,36 @@
+---
+const { title = 'AXD Player' } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>{title}</title>
+
+    <script is:inline src="https://cdn.tailwindcss.com"></script>
+    <script is:inline src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <script is:inline>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sp-black': '#000000',
+                        'sp-dark': '#121212',
+                        'sp-grey': '#181818',
+                        'sp-light': '#282828',
+                        'sp-green': '#1DB954',
+                        'sp-red': '#E8375A',
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="h-screen flex flex-col overflow-hidden bg-sp-black text-white" style="font-family:'Inter',sans-serif;">
+    <slot />
+</body>
+</html>
