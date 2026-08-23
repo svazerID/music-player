@@ -65,10 +65,10 @@
                 </div>
             </div>
             <div class="mt-auto pt-6 border-t border-white/5">
-                <div class="flex items-center justify-between px-3 py-3 bg-white/5 rounded-xl hover:bg-white/10 transition cursor-pointer group">
+                <div id="sidebarProfileBox" class="flex items-center justify-between px-3 py-3 bg-white/5 rounded-xl hover:bg-white/10 transition cursor-pointer group">
                     <div class="flex items-center space-x-3">
                         <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center"><i data-lucide="user" class="w-4 h-4 text-white"></i></div>
-                        <span class="text-sm font-bold">AlfiXD</span>
+                        <span class="text-sm font-bold" id="sidebarProfileName">Guest</span>
                     </div>
                     <i data-lucide="settings" class="w-4 h-4 text-gray-500 group-hover:text-white transition"></i>
                 </div>
@@ -79,28 +79,46 @@
         <main class="flex-1 bg-sp-dark overflow-y-auto pb-48 relative" id="mainContent">
 
             <!-- ============== VIEW: HOME ============== -->
-            <div id="viewHome" class="view-container px-5 pt-5 pb-4">
+            <div id="viewHome" class="view-container relative isolate px-5 pt-5 pb-4">
+                <div class="pointer-events-none absolute inset-x-0 top-0 h-56 bg-gradient-to-b from-sp-green/25 via-sp-green/5 to-transparent -z-10"></div>
                 <!-- Header -->
                 <div class="flex items-center justify-between mb-5">
                     <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-sp-green to-emerald-700 rounded-full flex items-center justify-center lg:hidden">
-                            <i data-lucide="headphones" class="w-5 h-5 text-white"></i>
-                        </div>
+                        <button id="headerProfileBtn" class="w-11 h-11 bg-gradient-to-br from-sp-green to-emerald-700 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden ring-2 ring-white/20 shadow-lg shadow-black/30" title="Profil">
+                            <span id="headerAvatarInitial" class="text-white font-bold text-base">G</span>
+                        </button>
                         <div>
-                            <p class="text-[11px] text-gray-400 font-medium" id="greetingText">Selamat Malam</p>
-                            <h1 class="text-xl font-black tracking-tight">Beranda</h1>
+                            <p class="text-[10px] uppercase tracking-wider text-gray-400 font-semibold" id="greetingText">Selamat Malam</p>
+                            <h1 class="text-2xl font-black tracking-tight leading-tight" id="headerName">Guest</h1>
                         </div>
                     </div>
-                    <div class="flex items-center space-x-2">
-                        <button class="relative p-2 text-gray-400 hover:text-white transition rounded-full hover:bg-white/5">
+                    <div class="flex items-center space-x-1 bg-white/5 backdrop-blur-md rounded-full p-1 border border-white/5">
+                        <button class="relative p-2 text-gray-400 hover:text-white transition rounded-full hover:bg-white/10">
                             <i data-lucide="bell" class="w-5 h-5"></i>
                             <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-sp-red rounded-full"></span>
                         </button>
-                        <button class="p-2 text-gray-400 hover:text-white transition rounded-full hover:bg-white/5">
+                        <button class="p-2 text-gray-400 hover:text-white transition rounded-full hover:bg-white/10">
                             <i data-lucide="clock" class="w-5 h-5"></i>
                         </button>
                     </div>
                 </div>
+
+                <!-- Hero Featured -->
+                <section id="heroSection" class="mb-7 hidden animate-fadeInUp">
+                    <div class="relative overflow-hidden rounded-3xl p-4 sm:p-5 flex items-center gap-4 bg-gradient-to-br from-sp-green/25 via-sp-grey to-sp-grey border border-white/5 shadow-2xl shadow-black/40 transition-transform duration-300 hover:-translate-y-1">
+                        <div class="absolute inset-0 opacity-40 pointer-events-none bg-[radial-gradient(140px_140px_at_0%_0%,rgba(29,185,84,0.45),transparent)]"></div>
+                        <img id="heroArt" src="" alt="" class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl shadow-2xl shadow-black/50 object-cover flex-shrink-0">
+                        <div class="relative flex-1 min-w-0">
+                            <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-sp-green mb-1">Pilihan Hari Ini</p>
+                            <h3 id="heroTitle" class="text-lg sm:text-2xl font-black text-white truncate-2 leading-tight mb-0.5"></h3>
+                            <p id="heroArtist" class="text-xs text-gray-300 truncate mb-3"></p>
+                            <div class="flex items-center space-x-3">
+                                <button id="heroPlay" class="w-12 h-12 bg-sp-green rounded-full flex items-center justify-center text-black shadow-lg shadow-sp-green/40 hover:scale-105 transition active:scale-95"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></button>
+                                <button id="heroLike" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition active:scale-95"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
                 <!-- Category Pills -->
                 <div class="flex space-x-2 overflow-x-auto scrollbar-hide mb-6 -mx-1 px-1" id="categoryPills">
@@ -125,7 +143,9 @@
                         <div class="flex-1"></div>
                         <div class="flex space-x-1" id="spotlightDots"></div>
                     </div>
-                    <div class="relative overflow-hidden rounded-2xl">
+                    <div class="relative overflow-hidden rounded-3xl shadow-2xl shadow-black/50" id="spotlightWrap">
+                        <button id="spotlightPrev" class="spotlight-nav spotlight-nav-prev" aria-label="Sebelumnya"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+                        <button id="spotlightNext" class="spotlight-nav spotlight-nav-next" aria-label="Berikutnya"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
                         <div class="spotlight-slides flex transition-transform duration-500 ease-out" id="spotlightSlides"></div>
                     </div>
                 </section>
@@ -185,6 +205,42 @@
                         <h2 class="text-base font-bold">Rilis Baru</h2>
                     </div>
                     <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3" id="newReleasesList"></div>
+                </section>
+
+                <!-- Top 50 Indonesia -->
+                <section class="mb-7 hidden" id="top50Section">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <i data-lucide="trending-up" class="w-4 h-4 text-red-400"></i>
+                        <h2 class="text-base font-bold">Top 50 Indonesia</h2>
+                    </div>
+                    <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3" id="top50List"></div>
+                </section>
+
+                <!-- K-Pop Hits -->
+                <section class="mb-7 hidden" id="kpopSection">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <i data-lucide="star" class="w-4 h-4 text-violet-400"></i>
+                        <h2 class="text-base font-bold">K-Pop Hits</h2>
+                    </div>
+                    <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3" id="kpopList"></div>
+                </section>
+
+                <!-- Dangdut -->
+                <section class="mb-7 hidden" id="dangdutSection">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <i data-lucide="music" class="w-4 h-4 text-orange-400"></i>
+                        <h2 class="text-base font-bold">Dangdut</h2>
+                    </div>
+                    <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3" id="dangdutList"></div>
+                </section>
+
+                <!-- Pop Indonesia -->
+                <section class="mb-7 hidden" id="popSection">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <i data-lucide="radio" class="w-4 h-4 text-blue-400"></i>
+                        <h2 class="text-base font-bold">Pop Indonesia</h2>
+                    </div>
+                    <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3" id="popList"></div>
                 </section>
 
                 <!-- Serupa dengan [Artist] -->
@@ -298,10 +354,10 @@
                     <button class="p-2 text-gray-400 hover:text-white transition rounded-full hover:bg-white/5"><i data-lucide="search" class="w-5 h-5"></i></button>
                 </div>
                 <div class="flex space-x-2 overflow-x-auto scrollbar-hide mb-5 -mx-1 px-1">
-                    <button class="lib-filter active flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-semibold bg-white text-black">Daftar putar</button>
-                    <button class="lib-filter flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-semibold bg-sp-light text-white">Lagu</button>
-                    <button class="lib-filter flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-semibold bg-sp-light text-white">Album</button>
-                    <button class="lib-filter flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-semibold bg-sp-light text-white">Artis</button>
+                    <button class="lib-filter active flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-semibold bg-white text-black" data-filter="playlists">Daftar putar</button>
+                    <button class="lib-filter flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-semibold bg-sp-light text-white" data-filter="songs">Lagu</button>
+                    <button class="lib-filter flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-semibold bg-sp-light text-white" data-filter="albums">Album</button>
+                    <button class="lib-filter flex-shrink-0 px-4 py-1.5 rounded-full text-[13px] font-semibold bg-sp-light text-white" data-filter="artists">Artis</button>
                 </div>
                 <div class="flex items-center justify-between mb-4 text-xs text-gray-400">
                     <div class="flex items-center space-x-1"><span>Tanggal ditambahkan</span><i data-lucide="chevron-down" class="w-3 h-3"></i></div>
@@ -334,16 +390,15 @@
                     <h1 class="text-xl font-black tracking-tight flex-1 text-center pr-10">Pengaturan</h1>
                 </div>
                 <div class="grid grid-cols-2 gap-3 mb-6">
-                    <div class="bg-sp-grey rounded-2xl p-4 flex flex-col items-center space-y-2 hover:bg-sp-light transition cursor-pointer"><i data-lucide="bar-chart-3" class="w-6 h-6 text-gray-400"></i><p class="text-xs font-bold text-center">Mode hemat data</p><p class="text-[10px] text-gray-500">Nonaktif</p></div>
-                    <div class="bg-sp-grey rounded-2xl p-4 flex flex-col items-center space-y-2 hover:bg-sp-light transition cursor-pointer"><i data-lucide="eye-off" class="w-6 h-6 text-gray-400"></i><p class="text-xs font-bold text-center">Sesi pribadi</p><p class="text-[10px] text-gray-500">Nonaktif</p></div>
+                    <div data-setting="dataSaver" class="bg-sp-grey rounded-2xl p-4 flex flex-col items-center space-y-2 hover:bg-sp-light transition cursor-pointer"><i data-lucide="bar-chart-3" class="w-6 h-6 text-gray-400"></i><p class="text-xs font-bold text-center">Mode hemat data</p><p class="text-[10px] text-gray-500 setting-status">Nonaktif</p></div>
+                    <div data-setting="privateSession" class="bg-sp-grey rounded-2xl p-4 flex flex-col items-center space-y-2 hover:bg-sp-light transition cursor-pointer"><i data-lucide="eye-off" class="w-6 h-6 text-gray-400"></i><p class="text-xs font-bold text-center">Sesi pribadi</p><p class="text-[10px] text-gray-500 setting-status">Nonaktif</p></div>
                 </div>
                 <div class="space-y-0.5">
-                    <div class="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/5 transition cursor-pointer"><i data-lucide="user" class="w-5 h-5 text-gray-400"></i><div class="flex-1"><p class="text-sm font-bold">Akun</p><p class="text-xs text-gray-500">Nama pengguna • Tutup akun</p></div><i data-lucide="chevron-right" class="w-4 h-4 text-gray-600"></i></div>
-                    <div class="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/5 transition cursor-pointer"><i data-lucide="palette" class="w-5 h-5 text-gray-400"></i><div class="flex-1"><p class="text-sm font-bold">Konten dan tampilan</p><p class="text-xs text-gray-500">Canvas • Kurangi animasi</p></div><i data-lucide="chevron-right" class="w-4 h-4 text-gray-600"></i></div>
-                    <div class="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/5 transition cursor-pointer"><i data-lucide="lock" class="w-5 h-5 text-gray-400"></i><div class="flex-1"><p class="text-sm font-bold">Privasi dan sosial</p><p class="text-xs text-gray-500">Sesi pribadi • Playlist publik</p></div><i data-lucide="chevron-right" class="w-4 h-4 text-gray-600"></i></div>
-                    <div class="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/5 transition cursor-pointer"><i data-lucide="volume-2" class="w-5 h-5 text-gray-400"></i><div class="flex-1"><p class="text-sm font-bold">Playback</p><p class="text-xs text-gray-500">Playback tanpa jeda • Autoplay</p></div><i data-lucide="chevron-right" class="w-4 h-4 text-gray-600"></i></div>
-                    <div class="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/5 transition cursor-pointer"><i data-lucide="bell" class="w-5 h-5 text-gray-400"></i><div class="flex-1"><p class="text-sm font-bold">Notifikasi</p><p class="text-xs text-gray-500">Push • Email</p></div><i data-lucide="chevron-right" class="w-4 h-4 text-gray-600"></i></div>
-                    <div class="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/5 transition cursor-pointer"><i data-lucide="sliders" class="w-5 h-5 text-gray-400"></i><div class="flex-1"><p class="text-sm font-bold">Kualitas media</p><p class="text-xs text-gray-500">Kualitas streaming Wi-Fi</p></div><i data-lucide="chevron-right" class="w-4 h-4 text-gray-600"></i></div>
+                    <div data-action="profile" class="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/5 transition cursor-pointer"><i data-lucide="user" class="w-5 h-5 text-gray-400"></i><div class="flex-1"><p class="text-sm font-bold">Akun</p><p class="text-xs text-gray-500">Nama pengguna • Tutup akun</p></div><i data-lucide="chevron-right" class="w-4 h-4 text-gray-600"></i></div>
+                    <div data-setting="reduceMotion" class="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/5 transition cursor-pointer"><i data-lucide="palette" class="w-5 h-5 text-gray-400"></i><div class="flex-1"><p class="text-sm font-bold">Konten dan tampilan</p><p class="text-xs text-gray-500">Canvas • Kurangi animasi · <span class="setting-status">Nonaktif</span></p></div><i data-lucide="chevron-right" class="w-4 h-4 text-gray-600"></i></div>
+                    <div data-setting="autoplay" class="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/5 transition cursor-pointer"><i data-lucide="volume-2" class="w-5 h-5 text-gray-400"></i><div class="flex-1"><p class="text-sm font-bold">Playback</p><p class="text-xs text-gray-500">Autoplay · <span class="setting-status">Aktif</span></p></div><i data-lucide="chevron-right" class="w-4 h-4 text-gray-600"></i></div>
+                    <div data-setting="notifications" class="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/5 transition cursor-pointer"><i data-lucide="bell" class="w-5 h-5 text-gray-400"></i><div class="flex-1"><p class="text-sm font-bold">Notifikasi</p><p class="text-xs text-gray-500">Push · <span class="setting-status">Nonaktif</span></p></div><i data-lucide="chevron-right" class="w-4 h-4 text-gray-600"></i></div>
+                    <div data-setting="highQuality" class="flex items-center space-x-4 p-4 rounded-xl hover:bg-white/5 transition cursor-pointer"><i data-lucide="sliders" class="w-5 h-5 text-gray-400"></i><div class="flex-1"><p class="text-sm font-bold">Kualitas media</p><p class="text-xs text-gray-500">FLAC · <span class="setting-status">Nonaktif</span></p></div><i data-lucide="chevron-right" class="w-4 h-4 text-gray-600"></i></div>
                 </div>
             </div>
 
@@ -401,7 +456,7 @@
             </header>
             <div class="flex items-center justify-center py-6 px-4"><div class="w-full max-w-[340px] aspect-square shadow-2xl shadow-black/80 rounded-xl overflow-hidden"><img src="" alt="" class="w-full h-full object-cover" id="fullThumbnail"></div></div>
             <div class="mt-8 space-y-6">
-                <div class="flex items-center justify-between"><div class="flex-1 min-w-0"><h2 class="text-2xl font-black text-white truncate tracking-tight" id="fullTitle">Song</h2><p class="text-gray-300 text-lg font-medium truncate" id="fullArtist">Artist</p></div><button class="text-white opacity-80 ml-4"><i data-lucide="heart" class="w-6 h-6"></i></button></div>
+                <div class="flex items-center justify-between"><div class="flex-1 min-w-0"><h2 class="text-2xl font-black text-white truncate tracking-tight" id="fullTitle">Song</h2><p class="text-gray-300 text-lg font-medium truncate" id="fullArtist">Artist</p></div><button class="text-white opacity-80 ml-4" id="likeBtn"><i data-lucide="heart" class="w-6 h-6"></i></button></div>
                 <div class="space-y-2">
                     <div class="h-1 bg-white/20 rounded-full w-full cursor-pointer" id="progressBarFull"><div class="h-full bg-white rounded-full relative" id="progressFull" style="width:0%"><div class="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-lg"></div></div></div>
                     <div class="flex justify-between text-[10px] text-gray-400 font-bold"><span id="currentTimeFull">0:00</span><span id="totalTimeFull">0:00</span></div>
@@ -438,6 +493,20 @@
         </div>
     </div>
     
+    <!-- Profile Modal (optional local sign in/up) -->
+    <div id="profileModal" class="fixed inset-0 z-[2000] hidden bg-black/80 backdrop-blur flex items-center justify-center p-6">
+        <div class="bg-sp-grey rounded-2xl p-6 w-full max-w-sm space-y-4">
+            <h2 class="text-lg font-black">Profil</h2>
+            <p class="text-xs text-gray-400">Masuk opsional. Cukup isi nama — tidak perlu akun sungguhan. App bisa dipakai sebagai Guest.</p>
+            <input id="profileNameInput" type="text" placeholder="Nama panggilan" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 text-white font-bold focus:outline-none focus:ring-2 focus:ring-sp-green">
+            <div class="flex space-x-2">
+                <button id="profileSaveBtn" class="flex-1 bg-sp-green text-black font-bold py-2.5 rounded-xl hover:opacity-90">Simpan</button>
+                <button id="profileClearBtn" class="px-4 bg-white/10 text-white font-bold py-2.5 rounded-xl hover:bg-white/20">Keluar</button>
+            </div>
+            <button id="profileCloseBtn" class="w-full text-gray-400 text-sm py-1 hover:text-white">Batal</button>
+        </div>
+    </div>
+
     <script src="js/config.js"></script>
     <script src="js/script.js"></script>
     <script>lucide.createIcons();</script>
